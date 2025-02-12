@@ -1,0 +1,18 @@
+1)Client sends a request on the node js server(backend)
+2)The request is stored inside event queue , one by one 
+3)Now from queue the request go to event loop(FIFO)
+4)Now request can be of two types , blocking operations(synchronous task) and non blocking operations(asynchronous task)
+5)After taking a request from the event queue , event loop checks the type of the request , if it is non blocking , 
+event loop process the request and sends response to the user.
+6)If it is blocking operation , to resolve the request , Thread pool comes into picture , it consists of multiple threads , these
+threads are responsible to execute the blocking operations
+7)Every request which is a blocking operation, is assigned with a thread(worker), whenever the thread is done with the request , it will return 
+result and respose is sent to the user
+8)By default in thread pool , total 4 threads are there , so it is difficult to scale , for eg if there are total 5 requests coming 
+parallally by users , the 5th request has to wait untill any of the first 4 to complete. So server will give slow responses in this case.
+9)So it is not a good practise to write blocking operations.
+
+
+Can we increase the thread pool size ?
+----> Yes , we can increase it based on our cpu , means by deafult it is 4 because of 4 core of the cpu.
+Maximum size depends on cpu core in your machine.
